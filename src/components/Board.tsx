@@ -5,8 +5,6 @@ import React from 'react'
 
 
 type BoardProps = {
-  setMoves: React.Dispatch<React.SetStateAction<number>>
-  finishGameCallback: () => void
   cardIds: Array<number>
 }
 
@@ -14,9 +12,7 @@ function Board(props: BoardProps) {
   const [openCards, setOpenCards] = useState<Array<number>>([]);
   const [clearedCards, setClearedCards] = useState<Array<number>>([]);
   const [shouldDisableAllCards, setShouldDisableAllCards] = useState<boolean>(false);
-  const timeout = useRef<NodeJS.Timeout>(setTimeout(()=>{}));
-  console.log(props.cardIds);
-  
+  const timeout = useRef<NodeJS.Timeout>(setTimeout(()=>{})); 
 
   const disable = () => {
     setShouldDisableAllCards(true);
@@ -24,12 +20,6 @@ function Board(props: BoardProps) {
   const enable = () => {
     setShouldDisableAllCards(false);
   };
-
-  const checkCompletion = () => {
-    if (clearedCards.length === props.cardIds.length) {
-     props.finishGameCallback()
-    }
-  }
 
   const evaluate = () => {
     const [first, second] = openCards;
@@ -47,7 +37,6 @@ function Board(props: BoardProps) {
   const handleCardClick = (id: number) => {
     if (openCards.length === 1) {
       setOpenCards((prev) => [...prev, id]);
-      props.setMoves((moves) => moves + 1)
       disable();
     } else {
       clearTimeout(timeout.current);
@@ -64,10 +53,6 @@ function Board(props: BoardProps) {
       clearTimeout(timeout);
     };
   }, [openCards]);
-
-  useEffect(() => {
-    checkCompletion();
-  }, [clearedCards]);
 
   const checkIsFlipped = (id: number) => {
     return clearedCards.includes(id) || openCards.includes(id);
