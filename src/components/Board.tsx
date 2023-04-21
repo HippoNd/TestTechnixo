@@ -15,6 +15,8 @@ function Board(props: BoardProps) {
   const [clearedCards, setClearedCards] = useState<Array<number>>([]);
   const [shouldDisableAllCards, setShouldDisableAllCards] = useState<boolean>(false);
   const timeout = useRef<NodeJS.Timeout>(setTimeout(()=>{}));
+  console.log(props.cardIds);
+  
 
   const disable = () => {
     setShouldDisableAllCards(true);
@@ -32,7 +34,7 @@ function Board(props: BoardProps) {
   const evaluate = () => {
     const [first, second] = openCards;
     enable();
-    if ((first % 6 + 1) === (second % 6 + 1)) {
+    if ((first % 8 + 1) === (second % 8 + 1)) {
       setClearedCards((prev) => [...prev, first, second]);
       setOpenCards([]);
       return;
@@ -80,7 +82,7 @@ function Board(props: BoardProps) {
       {props.cardIds.map(i => {
         return <Card
           key={i}
-          image={`/images/${i % 6 + 1}.png`}
+          image={`/images/${i % 8 + 1}.png`}
           id={i}
           isDisabled={shouldDisableAllCards}
           isInactive={checkIsInactive(i)}

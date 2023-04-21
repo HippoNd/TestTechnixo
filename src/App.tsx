@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Board from "./components/Board";
 
-const cardIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const cardIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 cardIds.sort(() => 0.5 - Math.random());
 console.log(cardIds);
 
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <div style={{padding:'16px 0px'}}>
+      <div style={{ padding: "16px 0px" }}>
         <button
           onClick={() => {
             window.location.reload();
